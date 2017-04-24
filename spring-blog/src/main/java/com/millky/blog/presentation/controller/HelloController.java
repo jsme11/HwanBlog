@@ -10,8 +10,16 @@ public class HelloController {
 	@RequestMapping("/hello")
 	public String index(Model model) {
 
-		model.addAttribute("name", "SpringBlog from Millky");
+		model.addAttribute("name", "Hwan");
 
 		return "hello";
+	}
+	@RequestMapping("/blog")
+	public String blog(Model model) {
+		return "blog";
+	}
+	@RequestMapping("/post")
+	public String post(Model model) {
+		return "post";
 	}
 }
