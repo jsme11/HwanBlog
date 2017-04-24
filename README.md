@@ -1,3 +1,3 @@
 # HwanBlog
 
- View 
+ blog View  구현
