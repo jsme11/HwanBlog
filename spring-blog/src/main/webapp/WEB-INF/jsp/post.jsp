@@ -70,6 +70,18 @@
                     ${post.content}
                 </div>
             </div>
+            
+            <div class="pull-right">
+            	<a href="/post/${post.id}/edit">
+					<button type="button" class="btn btn-warning">Edit</button>
+				</a>
+				<a href="/post/${post.id}/delete" onclick="if(!confirm('정말 지울거니?')){return false;}">
+				<button type="button" class="btn btn-danger">Delete</button>
+				</a>
+				<a href="/post/list">
+					<button type="button" class="btn btn-success">List</button>
+				</a>
+			</div>
         </div>
     </article>
 

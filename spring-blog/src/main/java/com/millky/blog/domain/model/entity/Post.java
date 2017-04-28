@@ -7,9 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Getter
 @Setter
@@ -31,6 +35,7 @@ public class Post {
     @Size(min = 1, max = 100000000)
     @Column(length = 100000000, nullable = false)
     String content;
-
-    Date regDate;
+    
+    @DateTimeFormat(iso = ISO.DATE_TIME)
+    LocalDateTime regDate;
 }
