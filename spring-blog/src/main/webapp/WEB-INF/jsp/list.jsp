@@ -39,6 +39,15 @@
                     <li>
                         <a href="http://startbootstrap.com">BootStrap</a>
                     </li>
+                    <li>
+                     <!--
+ 					<c:if test="${user!=null}">   
+ 						<form action="/user/logout" method="post">
+ 							<button type="submit" class="btn">Disconnect</button>
+ 							<input type="hidden" name="_csrf" value="${_csrf.token}"></input>
+ 						</form>
+ 					</c:if>-->
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -64,10 +73,24 @@
 
     <!-- Main Content -->
     <div class="container">
+ 		<h3>Connect to Facebook</h3>
+ 
+ 		<form action="/connect/facebook" method="POST">
+ 			<input type="hidden" name="_csrf" value="${_csrf.token}"></input>
+ 		<div class="formInfo">
+ 				<p>You aren't connected to Facebook yet. Click the button to connect this application with your Facebook account.</p>
+ 			</div>
+ 			<p>
+ 				<button type="submit">Connect to Facebook</button>
+ 			</p>
+ 		</form>
+ 	</div>
+ 
+    <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            
-			<c:forEach var="post" items="${postList}">
+            	
+			<c:forEach var="post" items="${postPage.content}">
 				<div class="post-preview">
                     <a href="/post/${post.id}">
                         <h2 class="post-title">
@@ -77,17 +100,24 @@
                             <c:out value="${post.subtitle}" escapeXml="true"></c:out>
                         </h3>
                     </a>
-                    <p class="post-meta">Posted by <a href="#">Hwan</a> on ${post.regDate}</p>
+                    <p class="post-meta">Posted by <a href="#">${post.name}</a> on ${post.regDate}</p>
                 </div>
                 <hr>
 			</c:forEach>
 			
                 <!-- Pager -->
                 <ul class="pager">
-                    <li class="next">
-                        <a href="#">Older Posts &rarr;</a>
-                    </li>
-                </ul>
+    				<c:if test="${!postPage.first}">
+    					<li class="previous">
+       						 <a href="?page=${postPage.number-1}">&larr; Newer Posts</a>
+    					</li>
+    				</c:if>
+    				<c:if test="${!postPage.last}">
+    					<li class="next">
+        					<a href="?page=${postPage.number+1}">Older Posts &rarr;</a>
+    					</li>
+    				</c:if>
+				</ul>
             </div>
         </div>
     </div>
@@ -101,7 +131,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
                         <li>
-                            <a href="https://www.facebook.com/millkyc">
+                            <a href="https://www.facebook.com/seonghwan.hwang.522">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
@@ -109,7 +139,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="https://github.com/origoni">
+                            <a href="https://github.com/jsme11">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -117,7 +147,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="https://twitter.com/origoni">
+                            <a href="https://twitter.com/">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
@@ -133,6 +163,5 @@
 
 	<script src="/webjars/jquery/2.1.3/dist/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/3.3.4/dist/js/bootstrap.min.js"></script>
-	<script src="/webjars/github-com-origoni-startbootstrap-clean-blog/1.0.3/js/clean-blog.min.js"></script>
 </body>
 </html>

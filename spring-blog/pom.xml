@@ -46,13 +46,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mobile</artifactId>
 		</dependency>
-		 <dependency>
+		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency> 
+		</dependency>-->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-social-facebook</artifactId>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-facebook</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -124,6 +124,16 @@
     		<groupId>org.webjars.bower</groupId>
     		<artifactId>github-com-origoni-startbootstrap-clean-blog</artifactId>
    			 <version>1.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>adminlte</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>font-awesome</artifactId>
+			<version>4.3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>

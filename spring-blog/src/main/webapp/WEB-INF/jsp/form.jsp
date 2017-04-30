@@ -80,6 +80,7 @@
 
 	<form:form action="${actionUrl}" commandName="post" onsubmit="if($('#pen').html()!='<p><br></p>')$('#content').val($('#pen').html()); pen.destroy();" method="post">
   
+ 		
  		<c:if test="${post.id != 0}"><form:input type="hidden" path="regDate" /></c:if>
  		
  		<form:errors path="*" cssClass="errorblock" element="div" />
