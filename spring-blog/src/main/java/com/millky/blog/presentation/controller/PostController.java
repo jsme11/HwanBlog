@@ -1,7 +1,6 @@
 package com.millky.blog.presentation.controller;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -37,25 +36,25 @@ public class PostController {
 	@Autowired
 	private PostDao postDao;
 	
-//	@Autowired
-//	private ConnectionRepository connectionRepository;
+	@Autowired
+	private ConnectionRepository connectionRepository;
 	
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String form(Post post) {
-		return "form";
+		return "post/form";
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String write(@Valid Post post, BindingResult bindingResult) {
-//		 User user = getConnect();
+		 User user = getConnect();
 		 
 		 if (bindingResult.hasErrors()) {
-		 	return "form";
+		 	return "post/form";
 		 }
 		 
 		 post.setRegDate(LocalDateTime.now());
-		// post.setUserId(user.getProviderUserId());
-		// post.setName(user.getDisplayName());
+		 post.setUserId(user.getProviderUserId());
+		 post.setName(user.getDisplayName());
 		return "redirect:/post/" + postDao.save(post).getId();
 	}
 
@@ -64,54 +63,55 @@ public class PostController {
 	        @PageableDefault(sort = { "id" }, direction = Direction.DESC, size = 3) Pageable pageable) {
 	    Page<Post> postPage = postDao.findAll(pageable);
 	    model.addAttribute("postPage", postPage);
-//	    User user = getConnect();
-//	    model.addAttribute("user", user);
-	    return "list";
+	    
+	    User user = getConnect();
+	    model.addAttribute("user", user);
+	    
+	    return "post/list";
 	}
 
 	@RequestMapping("/{id}")
 	public String view(Model model, @PathVariable int id) {
 		Post post = postDao.findOne(id);
 		model.addAttribute("post", post);
-//		User user = getConnect();
-//		model.addAttribute("user", user);
-		return "post";
+		
+		User user = getConnect();
+		model.addAttribute("user", user);
+		
+		return "post/post";
 	}
 	
 	@RequestMapping("/{id}/delete")
 	public String delete(@PathVariable int id) {
-//		User user = getConnect();
+		User user = getConnect();
 		
-		Post post = postDao.findOne(id);
-		
-//		 if (post.getUserId().equals(user.getProviderUserId())) {
-		 postDao.delete(id);
-//		 }
+		Post post = postDao.findOne(id);	
+		if (post.getUserId().equals(user.getProviderUserId())) {
+			postDao.delete(id);
+		}
+		 
 		return "redirect:/post/list";
 	}
 	
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
 	public String editor(Model model, @PathVariable int id) {
-//		User user = getConnect();
+		User user = getConnect();
+		
 		Post post = postDao.findOne(id);
-//		if (post.getUserId().equals(user.getProviderUserId())) {
+		if (post.getUserId().equals(user.getProviderUserId())) {
 			 model.addAttribute("post", post);
-//		}
-		return "form";
+		}
+		return "post/form";
 	}
 
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.POST)
 	public String edit(@Valid Post post, BindingResult bindingResult) {
-//		User user = getConnect();
+		User user = getConnect();
 		
 		if (bindingResult.hasErrors()) {
-			return "form";
+			return "post/form";
 		}
-		return "redirect:/post/" + postDao.save(post).getId();
-	}
-	//return "post/form";
-}
-	/*	
+				
 		Post oldPost = postDao.findOne(post.getId());
 		if (oldPost.getUserId().equals(user.getProviderUserId())) {
 		 		oldPost.setTitle(post.getTitle());
@@ -120,8 +120,8 @@ public class PostController {
 		 		return "redirect:/post/" + postDao.save(oldPost).getId();
 		}
 		 
-		return "form";
-	}
+		return "post/form";
+}
 		 
 	private User getConnect() {
 		 Connection<Facebook> connection = connectionRepository.findPrimaryConnection(Facebook.class);
@@ -140,4 +140,4 @@ public class PostController {
 		 		String providerUserId;
 		 		String displayName;
 		  	}
-}*/
+}

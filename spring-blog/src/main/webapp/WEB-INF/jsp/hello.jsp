@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<!-- <%@ include file="/WEB-INF/jspf/head.jspf"%>-->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,6 +16,10 @@
 		<c:out value="<xmp>" escapeXml="true"></c:out>
 		<h2>Hello! ${name}</h2>
 		<div>JSP version</div>
+		
+		<a href="/post/list">
+			<button type="button" class="btn btn-lg btn-success btn-block">돌아가기</button>
+		</a>
 		
 		 <div class="page-header">
         <h1>Buttons</h1>
@@ -57,7 +62,6 @@
       </p>
 	</div>
 
-	<script src="/webjars/jquery/2.1.3/dist/jquery.min.js"></script>
-	<script src="/webjars/bootstrap/3.3.4/dist/js/bootstrap.min.js"></script>
+<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 </body>
 </html>

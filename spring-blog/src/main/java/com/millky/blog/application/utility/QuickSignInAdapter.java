@@ -1,4 +1,4 @@
-/*package com.millky.blog.application.utility;
+package com.millky.blog.application.utility;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,4 +53,4 @@ public class QuickSignInAdapter implements SignInAdapter {
 		SecurityContextHolder.getContext().setAuthentication(
 				new UsernamePasswordAuthenticationToken(userId, null, null));
 	}
-}*/
+}

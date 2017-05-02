@@ -1,4 +1,4 @@
-/*package com.millky.blog.application.configuration;
+package com.millky.blog.application.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,4 +35,3 @@ public class SocialConfig extends SocialConfigurerAdapter {
         return new QuickSignInAdapter(new HttpSessionRequestCache());    
     }
 }
-  */

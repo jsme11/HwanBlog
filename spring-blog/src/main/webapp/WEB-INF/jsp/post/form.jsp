@@ -53,7 +53,7 @@
 
 	<div id="toolbar">
 		<h5><span id="back" class="icon-back" onclick="history.back();">돌아가기<br>&nbsp;&nbsp;&nbsp;←</span></h5><br>
-		<!--  <span id="hinted" class="icon-pre disabled" title="Toggle Markdown Hints"></span>-->
+		<span id="hinted" class="icon-pre disabled" title="Toggle Markdown Hints"></span>
 	</div>
 
 	<div id="custom-toolbar" class="pen-menu pen-menu" style="display: block; top: 20px; margin:0 auto;">
@@ -81,7 +81,7 @@
 	<form:form action="${actionUrl}" commandName="post" onsubmit="if($('#pen').html()!='<p><br></p>')$('#content').val($('#pen').html()); pen.destroy();" method="post">
   
  		
- 		<c:if test="${post.id != 0}"><form:input type="hidden" path="regDate" /></c:if>
+ 		<form:input type="hidden" path="_csrf" value="${_csrf.token}"></form:input>
  		
  		<form:errors path="*" cssClass="errorblock" element="div" />
  
@@ -136,7 +136,6 @@
 			}
 		});
 		
-		// 바디의 마진을 가지고 와서. 툴바의 좌측으로.
 	</script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-/*package com.millky.blog.application.configuration;
+package com.millky.blog.application.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,11 +20,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .deleteCookies("JSESSIONID")
                     .logoutSuccessUrl("/post/list")
             .and()
-                .authorizeRequests()*/
-                   //.antMatchers("/**/write*//", "/**/edit*", "/**/delete*").authenticated().antMatchers("/**").permitAll();
-//    }
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web.ignoring().antMatchers("/console/**");
-//    }
-//}
+                .authorizeRequests()
+                   .antMatchers("/**/write*//", "/**/edit*", "/**/delete*").authenticated().antMatchers("/**").permitAll();
+    }
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/console/**");
+    }
+}
