@@ -17,7 +17,7 @@
   body{width:750px;margin:0 auto;padding:7% 20px 20px;}
   @media all and (max-width:1024px){ body, pre a{width:85%;} }
   small{color:#999;}
-  #toolbar{margin-bottom:1em;position:fixed;left:20px;margin-top:5px;}
+  #toolbar{margin-bottom:1em;position:fixed;right:20px;margin-top:5px;}
   #toolbar [class^="icon-"]:before, #toolbar [class*=" icon-"]:before{font-family:'pen'}
   #back{color:#1abf89;cursor:pointer;}
   #hinted{color:#1abf89;cursor:pointer;}
@@ -53,7 +53,13 @@
 
 	<div id="toolbar">
 		<h5><span id="back" class="icon-back" onclick="history.back();">돌아가기<br>&nbsp;&nbsp;&nbsp;←</span></h5><br>
-		<span id="hinted" class="icon-pre disabled" title="Toggle Markdown Hints"></span>
+		
+		
+		<form action="/category/add" method="post" id="add_category" >&nbsp;&nbsp;<h5>카테고리추가</h5>
+ 			<input type="text" name="categoryName" class="form-control" placeholder="새로운 카테고리">
+ 			<input type="hidden" name="_csrf" value="${_csrf.token}">
+ 			<button type="submit" class="form-control">추가</button>
+ 		</form>
 	</div>
 
 	<div id="custom-toolbar" class="pen-menu pen-menu" style="display: block; top: 20px; margin:0 auto;">
@@ -103,7 +109,15 @@
   		<div data-toggle="pen" data-placeholder="Content" id="pen" style="min-height: 200px;"></div>
  		<form:input type="hidden" path="content" id="content" />
  		<form:errors path="content" cssClass="error" />
-  
+  		
+  		
+  		<div class="form-group" style="height: 30px;">
+ 			<label for="category" class="col-sm-2 control-label">Category</label>
+ 			<div class="col-sm-10">
+ 				<form:select path="categoryId" items="${categoryMap}" id="category" class="form-control"/>
+ 				<form:errors path="categoryId" cssClass="error" />
+ 			</div>
+ 		</div>
   		<hr>
   
   		<button type="submit" class="btn btn-primary btn-lg btn-block">저장</button>
@@ -117,6 +131,22 @@
 	<script src="/webjars/pen/0.1.0/src/markdown.js"></script>
 	<script type="text/javascript">
 		// config
+		$('#add_category').submit(function(event) {
+ 			var form = $(this);
+ 			$.ajax({
+ 				type : form.attr('method'),
+ 				url : form.attr('action'),
+ 				data : form.serialize()
+ 			}).done(function(c) {				
+ 				$("#category").append("<option value=" + c.id + ">" + c.name + "</option>");
+ 				$("#category").val(c.id);
+ 				
+ 				alert(c.name + " 카테고리가 추가되었습니다.");
+ 			}).fail(function() {
+ 				alert('error');
+ 			});
+ 			event.preventDefault();
+ 		});
 		var options = {
 			toolbar : document.getElementById('custom-toolbar'),
 			editor : document.querySelector('[data-toggle="pen"]')
