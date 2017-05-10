@@ -1,3 +1,3 @@
 # HwanBlog
 
-Hello~♪
+- RSS 기능 구현
