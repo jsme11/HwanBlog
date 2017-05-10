@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,7 +17,7 @@
 		<c:out value="<xmp>" escapeXml="true"></c:out>
 		<h2>Hello! ${name}</h2>
 		<div>JSP version</div>
-		
+		<div><fmt:message key="required"/></div>
 		<a href="/post/list">
 			<button type="button" class="btn btn-lg btn-success btn-block">돌아가기</button>
 		</a>

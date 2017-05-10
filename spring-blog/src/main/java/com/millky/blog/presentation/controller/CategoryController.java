@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.millky.blog.domain.model.entity.Category;
 import com.millky.blog.infrastructure.dao.CategoryDao;
@@ -17,7 +18,7 @@ public class CategoryController {
 	private CategoryDao categoryDao;
 
 	@ResponseBody
-	@RequestMapping(value = "/category/add")// , method = RequestMethod.POST)
+	@RequestMapping(value = "/category/add", method = RequestMethod.POST)
 	public Category add(@RequestParam(value = "categoryName", required = true) String categoryName) {
 
 		Category category = new Category();
