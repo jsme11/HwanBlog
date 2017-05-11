@@ -6,7 +6,7 @@
     <channel>
         <title><![CDATA[Spring blog]]></title>
         <description><![CDATA[아카이브, 블로그, 커뮤니티 서비스]]></description>
-        <language>ko-kr</language>
+        <language>ko-kr</language> 
         <c:forEach var="post" items="${postList}">
             <item>
                 <title><![CDATA[<c:out value="${post.title}" escapeXml="true" />]]></title>

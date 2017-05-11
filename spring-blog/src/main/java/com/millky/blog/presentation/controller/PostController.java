@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.millky.blog.domain.service.PostService;
 
 import com.millky.blog.domain.model.UserSession;
 import com.millky.blog.domain.model.entity.Post;
@@ -26,6 +27,9 @@ public class PostController {
 	
 	@Autowired
 	private PostRepository postRepository;
+	
+	@Autowired
+	private PostService postService;
 	
 	@Autowired
 	private CategoryRepository categoryRepository;
@@ -46,7 +50,7 @@ public class PostController {
 		 	return "post/form";
 		 }
 		 
-		return "redirect:/post/" + postRepository.writePost(post, user).getId();
+		return "redirect:/post/" + postService.writePost(post, user).getId();
 	}
 
 	@RequestMapping("/list")
