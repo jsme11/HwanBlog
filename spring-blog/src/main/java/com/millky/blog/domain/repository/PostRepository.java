@@ -13,6 +13,7 @@ import com.millky.blog.domain.model.UserSession;
 import com.millky.blog.domain.model.entity.Post;
 import com.millky.blog.domain.model.exception.IllegalUserException;
 import com.millky.blog.infrastructure.dao.PostDao;
+import com.millky.blog.domain.model.command.PostCommand;
 
 @Repository
 public class PostRepository {
@@ -46,28 +47,26 @@ public class PostRepository {
 	public Post writePost(Post post) {
 
 		post.setRegDate(new Date());
+		post.setUpdateDate(new Date());
 		
 		return postDao.save(post);
 	}
 
-	public void deletePost(int id, UserSession user) throws IllegalUserException, IllegalArgumentException {
-		if (isThisUserPostWriter(user, id)) {
-			postDao.delete(id);
-		} else {
-			throw new IllegalUserException("Not the Writer.");
-		}
+	public void deletePost(int id) throws IllegalUserException, IllegalArgumentException {
+		 postDao.delete(id);
 	}
 
 	@Transactional
-	public Post editPost(Post post, UserSession user) throws RuntimeException {
-		Post oldPost = findByIdAndUser(post.getId(), user);
+	public Post editPost(PostCommand postCommand) {
+		Post post = getPostById(postCommand.getId());
 
-		oldPost.setTitle(post.getTitle());
-		oldPost.setSubtitle(post.getSubtitle());
-		oldPost.setContent(post.getContent());
-		oldPost.setCategoryId(post.getCategoryId());
+		post.setUpdateDate(new Date());
+		post.setTitle(postCommand.getTitle());
+		post.setSubtitle(postCommand.getSubtitle());
+		post.setContent(postCommand.getContent());
+		post.setCategoryId(postCommand.getCategoryId());
 
-		return oldPost;
+		return post;
 	}
 
 	public Post findByIdAndUser(int id, UserSession user) throws RuntimeException {
@@ -77,7 +76,7 @@ public class PostRepository {
 			throw new IllegalUserException("Not the Writer.");
 	}
 
-	private boolean isThisUserPostWriter(UserSession user, int id) throws IllegalArgumentException {
+	public boolean isThisUserPostWriter(UserSession user, int id) throws IllegalArgumentException {
 		Post post = getPostById(id);
 
 		return post.getUserId().equals(user.getProviderUserId());
