@@ -15,22 +15,27 @@ import com.millky.blog.domain.model.exception.IllegalUserException;
 import com.millky.blog.infrastructure.dao.PostDao;
 import com.millky.blog.domain.model.command.PostCommand;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Repository
 public class PostRepository {
 
 	@Autowired
 	private PostDao postDao;
 
-	public Page<Post> getPostList(Pageable pageable, int categoryId) {
-		Page<Post> postPage;
-
-		if (categoryId > 0) {
-			postPage = postDao.findByCategoryId(categoryId, pageable);
-		} else {
-			postPage = postDao.findAll(pageable);
-		}
+		public Page<Post> getPostList(Pageable pageable) {
+			Page<Post> postPage = postDao.findAll(pageable);
+			log.debug("postPage = {}", postPage);
 
 		return postPage;
+	}
+		
+	public Page<Post> getPostList(Pageable pageable, int categoryId) {
+		return postDao.findByCategoryId(categoryId, pageable);
+	}
+		
+	public Page<Post> getPostList(Pageable pageable, String tagName) {
+		return postDao.findByPostTagListTagName(tagName, pageable);
 	}
 
 	public Post getPostById(int id) throws IllegalArgumentException {

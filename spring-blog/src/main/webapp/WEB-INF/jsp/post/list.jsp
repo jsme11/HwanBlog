@@ -27,6 +27,10 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             
+            <c:if test="${postPage.content.size()==0}">
+ +				글이 없습니다.
+ +			</c:if>
+            
 			<c:forEach var="post" items="${postPage.content}">
 				<div class="post-preview">
                     <a href="/post/${post.id}">
@@ -37,7 +41,7 @@
                             <c:out value="${post.subtitle}" escapeXml="true"></c:out>
                         </h3>
                     </a>
-                    <p class="post-meta">Posted by <a href="#">${post.name}</a> in <a href="/post/list?category=${post.category.id}"><c:out value="${post.category.name}" escapeXml="true" /></a> on ${post.regDate}</p>
+                    <p class="post-meta">Posted by <a href="#">${post.name}</a> in <a href="category/${post.category.id}/post/list"><c:out value="${post.category.name}" escapeXml="true" /></a> on ${post.regDate}</p>
                 </div>
                 <hr>
 			</c:forEach>
@@ -45,12 +49,12 @@
                 <ul class="pager">
                 	<c:if test="${!postPage.first}">
                     <li class="previous">
-                        <a href="?<c:if test="${categoryId > 0}">category=${categoryId}&</c:if>page=${postPage.number-1}">&larr; Newer Posts</a>
+                        <a href="?page=${postPage.number-1}">&larr; Newer Posts</a>
                     </li>
                     </c:if>
                     <c:if test="${!postPage.last}">
                     <li class="next">
-                        <a href="?<c:if test="${categoryId > 0}">category=${categoryId}&</c:if>page=${postPage.number+1}">Older Posts &rarr;</a>
+                        <a href="?page=${postPage.number+1}">Older Posts &rarr;</a>
                     </li>
                     </c:if>
                 </ul>
