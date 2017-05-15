@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -36,7 +37,7 @@ public class Post {
 
     String subtitle;
 
-    @Column(length = 100000000, nullable = false)
+    @Lob
     String content;
         
     Date regDate;
