@@ -6,7 +6,7 @@
  <link rel="stylesheet" href="/webjars/bootstrap/3.3.4/dist/css/bootstrap.min.css">
  <link rel="stylesheet" href="/webjars/font-awesome/4.3.0/css/font-awesome.min.css">
  <link rel="stylesheet" href="/webjars/github-com-origoni-startbootstrap-clean-blog/1.0.3/css/clean-blog.min.css">
- <link rel="alternate" type="application/rss+xml" title="Spring Blog (RSS 2.0)" href="http://blog.millky.com/rss/post/list"/>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
  
  <style type="text/css">
 
@@ -111,15 +111,15 @@
 #menu-toggle {
     z-index: 1;
     position: fixed;
-    top: 55px;
-    right: 15px;
+    top: 5px;
+    right: 5px;
     color: #fff;
 }
 #menu-home {
 	z-index: 1;
 	position: fixed;
 	top: 5px;
-	right: 15px;
+	right: 60px;
 	color: #fff;
 }
 #sidebar-wrapper.active {
@@ -133,6 +133,8 @@
 }
 
 .toggle {
-    margin: 5px 5px 0 0;
+    top: 5px;
+ 	right: 0px;
+ 	position: absolute;
 }
 </style>

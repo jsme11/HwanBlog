@@ -7,6 +7,10 @@ spring:
             appId: 296805460772116
             appSecret: e1bd0f2f252d2df1fde81df3ee3a5c2c
             
+    jpa:
+        generate-ddl: true
+        show-sql: true
+            
 logging:
     level:
         com.millky.blog: DEBUG

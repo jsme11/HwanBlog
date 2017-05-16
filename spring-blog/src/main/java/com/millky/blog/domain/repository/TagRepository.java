@@ -4,7 +4,8 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import com.millky.blog.domain.model.entity.Tag;
 import com.millky.blog.infrastructure.dao.TagDao;
 
@@ -36,5 +37,9 @@ public class TagRepository {
 		Tag tag = tagDao.findOne(tagIdx);
 		tag.setUpdateDate(new Date());
 		tag.setUseCount(tag.getUseCount() - 1);
+	}
+	public Page<Tag> findAll(Pageable pageable) {
+		Page<Tag> tags = tagDao.findAll(pageable);
+		return tags;
 	}
 }

@@ -43,6 +43,7 @@ public class Post {
     Date regDate;
     
     Date updateDate;
+    
     	private int categoryId;
     
     	@ManyToOne(fetch = FetchType.LAZY)
