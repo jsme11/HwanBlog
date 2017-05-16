@@ -29,7 +29,7 @@ public class SwaggerConfig {
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("Hwan's Blog")
-				.description("Blog")
+				.description("<a href=\"/post/list\">Blog</a>")
 				.contact("jsme111@naver.com")
 				.version("1.0.0")
 				.build();
