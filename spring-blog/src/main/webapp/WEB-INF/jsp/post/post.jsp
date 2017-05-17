@@ -88,7 +88,7 @@
 {{#.}}
 <div class="media">
   <div class="media-body">
-	{{content}}<br>
+	{{{content}}}<br>
 	<h4 class="media-heading" style="display: inline-block;">{{name}}</h4> on {{momentNow}} <small>({{momentDate}})</small>
 	{{#myComment}}<button type="button" style="margin-bottom: 5px;" class="btn btn-danger btn-sm" onclick="if(!confirm('진심이에요?')){return false;} deleteComment({{postId}}, {{id}});">Delete</button>{{/myComment}}
     <br>
@@ -133,6 +133,11 @@
 		});
 		event.preventDefault();
 	});
+	
+	var autolinker = new Autolinker( {
+	 	newWindow : false,
+	 	truncate  : 70
+	} );
 
 	moment.locale('${pageContext.request.locale.language}');
 	var template = $('#template').html();
@@ -153,6 +158,9 @@
 						if (key == "regDate") {
 							object['momentDate'] = moment(value).format("YYYY-MM-DD HH:mm:ss");
 							object['momentNow'] = moment(value).fromNow();
+						}
+						if (key == "content") {
+ 							object['content'] = autolinker.link(value).replace(/(?:\r\n|\r|\n)/g, "<br />"); // /\r?\n|\r/g
 						}
 					 	if (key == "userId") {
 					 							

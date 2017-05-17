@@ -46,6 +46,7 @@
  	<script src="/webjars/momentjs/2.11.2/moment.js"></script>
  	<script src="/webjars/momentjs/2.11.2/locale/${pageContext.request.locale.language}.js"></script>
  	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud-1.0.4.js"></script>
+ 	<script src="/webjars/Autolinker.js/0.25.0/dist/Autolinker.min.js"></script>
  	
  	<script type="text/javascript">
      
