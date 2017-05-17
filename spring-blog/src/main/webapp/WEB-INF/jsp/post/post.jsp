@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="${pageContext.request.locale.language}">
 <head>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
 <title><c:out value="${post.title}" escapeXml="true"/> : Hwan's Blog</title>
@@ -57,12 +57,121 @@
             	</a>
             </div>
             </c:if>
+            <hr>
+			<div class="row">
+				<div id="target" class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"></div>
+				<c:if test="${_USER!=null}">
+					<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+						<br>
+						<form action="/comments" method="post" id="comment_form">
+							<input type="hidden" name="postId" value="${post.id}">
+							<input type="hidden" name="_csrf" value="${_csrf.token}"></input>
+							<div class="media">
+								<div class="media-body">
+									<textarea name="content" class="form-control" rows="2"></textarea>
+								</div>
+								<div class="media-right">
+									<button class="btn" type="submit">저장</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</c:if>
+			</div>
         </div>
     </article>
 
     <hr>
 
     <%@ include file="/WEB-INF/jspf/footer.jspf" %>
-    
+    <script id="template" type="x-tmpl-mustache">
+{{#.}}
+<div class="media">
+  <div class="media-body">
+	{{content}}<br>
+	<h4 class="media-heading" style="display: inline-block;">{{name}}</h4> on {{momentNow}} <small>({{momentDate}})</small>
+	{{#myComment}}<button type="button" style="margin-bottom: 5px;" class="btn btn-danger btn-sm" onclick="if(!confirm('진심이에요?')){return false;} deleteComment({{postId}}, {{id}});">Delete</button>{{/myComment}}
+    <br>
+  </div>
+</div>
+{{/.}}
+</script>
+
+<script type="text/javascript">
+
+		function deleteComment(postId, commentId) {
+	 		$.ajax({
+	 			type : "delete",
+	 			url : "/comments/" + commentId + "?postId=" + postId,
+	 			dataType : 'json',
+	 			beforeSend : function(xhr) {
+	 				xhr.setRequestHeader('X-CSRF-Token', '${_csrf.token}');
+	 			},
+	 			success : function(data, status) {
+	 				loadComment();
+	 			},
+	 			error : function(data, status) {
+	 				alert(data.responseJSON.message);
+	 			}
+	 		});
+	 	}
+		
+	$("#comment_form").submit(function(event) {
+		var form = $(this);
+		$.ajax({
+			type : form.attr('method'),
+			url : form.attr('action'),
+			data : form.serialize(),
+			dataType : 'json',
+			success : function(data, status) {
+				loadComment();
+				form[0].reset();
+			},
+			error : function(data, status) {
+				alert(data.responseJSON.message);
+			}
+		});
+		event.preventDefault();
+	});
+
+	moment.locale('${pageContext.request.locale.language}');
+	var template = $('#template').html();
+	Mustache.parse(template);
+	function loadComment() {
+		$.ajax({
+			type : "GET",
+			url : "/comments",
+			data : "postId=${post.id}",
+			dataType : 'json',
+			cache : false,
+			success : function(data, status) {
+				for (k in data) {
+					object = data[k];
+					 					
+					for (key in object) {
+						value = object[key];
+						if (key == "regDate") {
+							object['momentDate'] = moment(value).format("YYYY-MM-DD HH:mm:ss");
+							object['momentNow'] = moment(value).fromNow();
+						}
+					 	if (key == "userId") {
+					 							
+					 		if (value == "${_USER.providerUserId}") {
+					 			object['myComment'] = true;
+					 		}
+						}
+					 }
+				}
+				$('#target').html(Mustache.render(template, data));
+			},
+			error : function(data, status) {
+				alert("error");
+			}
+		}).always(function() {
+		});
+	}
+	
+	loadComment();
+</script>
 </body>
 </html>
